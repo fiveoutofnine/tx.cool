@@ -3,10 +3,13 @@ import { Fira_Code, Inter } from 'next/font/google';
 import type { ReactNode } from 'react';
 
 import './globals.css';
+import '@rainbow-me/rainbowkit/styles.css';
 import { Analytics } from '@vercel/analytics/react';
 import clsx from 'clsx';
 
 import Web3Provider from '@/lib/providers/Web3Provider';
+
+import NavBar from '@/components/common/nav-bar';
 
 // -----------------------------------------------------------------------------
 // Fonts
@@ -37,10 +40,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className="dark" style={{ background: 'black' }}>
+    <html lang="en" className={clsx('dark', inter.className)} style={{ background: 'black' }}>
       <body className={clsx(inter.variable, firaCode.variable)}>
         <Web3Provider>
-          <main className="min-h-screen">{children}</main>
+          <div className="flex">
+            <NavBar />
+            <main className="min-h-screen grow">{children}</main>
+          </div>
         </Web3Provider>
       </body>
 
