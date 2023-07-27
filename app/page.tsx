@@ -1,6 +1,8 @@
 import Link from 'next/link';
 
-import { Github, MessageCircle } from 'lucide-react';
+import { Github } from 'lucide-react';
+
+import { EXPLORATIONS } from '@/lib/constants/site';
 
 import { Button } from '@/components/ui';
 
@@ -28,24 +30,17 @@ export default function Home() {
         Explorations
       </h2>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
-        {[
-          {
-            name: '/chat',
-            href: '/chat',
-            description: 'Visualization of on-chain messaging with a chat-like UI/UX.',
-            icon: <MessageCircle />,
-          },
-        ].map((app) => (
+        {EXPLORATIONS.map((exploration) => (
           <Link
-            key={app.href}
-            href={app.href}
+            key={exploration.slug}
+            href={exploration.slug}
             className="rounded-xl border border-gray-7 bg-gray-3 p-4 transition-colors hover:border-gray-8 md:col-span-2 xl:col-span-1"
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-6 bg-gray-3 text-gray-11">
-              <span className="h-6 w-6">{app.icon}</span>
+              <span className="h-6 w-6">{exploration.icon}</span>
             </div>
-            <div className="mt-3 font-medium text-gray-12">{app.name}</div>
-            <div className="mt-1 text-sm text-gray-11">{app.description}</div>
+            <div className="mt-3 font-medium text-gray-12">{exploration.name}</div>
+            <div className="mt-1 text-sm text-gray-11">{exploration.description}</div>
           </Link>
         ))}
       </div>

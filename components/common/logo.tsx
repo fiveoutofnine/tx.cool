@@ -15,12 +15,12 @@ const Logo: FC<LogoProps> = ({ className, href = '/' }) => {
   return (
     <Link
       href={href}
-      className={clsx(twMerge('h-8 w-8 hover:brightness-75', className))}
+      className={clsx(twMerge('h-6 w-6 hover:brightness-75', className))}
       aria-label="Home"
     >
       <svg
-        width="32"
-        height="32"
+        width="24"
+        height="24"
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
