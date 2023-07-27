@@ -55,7 +55,7 @@ const NavBarMobile: FC<NavBarInternalProps> = ({ selected }) => {
   const homeSelected = selected === '/';
 
   return (
-    <nav className="pointer-events-auto absolute bottom-0 z-popover flex h-12 w-full items-center justify-around border-t border-gray-6 px-4 dark:bg-gray-2 md:hidden">
+    <nav className="pointer-events-auto fixed bottom-0 z-popover flex h-12 w-full items-center justify-around border-t border-gray-6 px-4 dark:bg-gray-2 md:hidden">
       <IconButton
         className={homeSelected ? 'cursor-default bg-gray-4' : ''}
         variant="ghost"
