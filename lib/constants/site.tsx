@@ -7,7 +7,7 @@ import type { Exploration } from '@/lib/types/site';
  */
 export const EXPLORATIONS: Exploration[] = [
   {
-    name: 'Chat',
+    name: '/chat',
     slug: '/chat',
     description: 'Visualization of on-chain messaging with a chat-like UI/UX.',
     icon: <MessageCircle />,
