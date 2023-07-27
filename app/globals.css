@@ -6,7 +6,6 @@ html,
 body,
 main {
   @apply bg-gray-1 text-gray-12;
-  font-family: 'Inter', sans-serif;
   font-weight: 300;
 }
 
