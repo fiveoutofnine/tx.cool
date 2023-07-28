@@ -32,7 +32,8 @@ const ChatExamples: FC = () => {
               index !== 0 && 'border-t border-gray-6',
             )}
           >
-            {/* @ts-expect-error Async Server Component */}
+            {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+            {/* @ts-ignore Async Server Component */}
             <AddressInfo address={example.address as Address} label={example.label} />
             <Button href={`/chat/${example.address}`} size="sm" rightIcon={<ChevronRight />}>
               View

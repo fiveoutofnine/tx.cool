@@ -19,7 +19,8 @@ export default async function AddressInfo({ address, label }: AddressInfoProps) 
 
   return (
     <div className="flex items-center space-x-3">
-      {/* @ts-expect-error Async Server Component */}
+      {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+      {/* @ts-ignore Async Server Component */}
       {ensName ? <ENSAvatar name={ensName} /> : <Avatar src="" alt="" />}
       <div>
         <div className="font-medium text-gray-12">{label ?? addressDisplay}</div>
