@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    domains: ['ipfs.io', 'arweave.net'],
+  },
   reactStrictMode: false,
   swcMinify: false,
   webpack5: true,

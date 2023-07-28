@@ -45,7 +45,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <Web3Provider>
           <div className="flex">
             <NavBar />
-            <main className="min-h-screen grow">{children}</main>
+            <main className="min-h-screen grow pl-0 md:pl-12">{children}</main>
           </div>
         </Web3Provider>
       </body>
