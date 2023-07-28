@@ -1,6 +1,8 @@
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Fragment, type ReactNode } from 'react';
+
+import ChatColumnWrapper from './chat-column-wrapper';
+import ChatPreview from './chat-preview';
 
 import { publicClient } from '@/lib/client';
 import { fetchRecentMessages, getEnsNameOrAddress, getShortenedAddress } from '@/lib/utils';
@@ -26,7 +28,10 @@ export default async function ChatLayout({
 
   return (
     <div className="flex min-h-screen">
-      <div className="relative min-h-screen w-full border-r border-gray-6 bg-gray-2 md:w-[320px]">
+      {/* We need the following component as a wrapper because we need to read
+      `pathname` via `usePathname` to determine whether we're on `/chat/[from]`
+      or `/chat/[from]/[to]`. */}
+      <ChatColumnWrapper>
         <div className="sticky top-0 h-12 border-b border-gray-6 bg-gray-2/50 px-4 backdrop-blur-2xl">
           {/* Desktop */}
           <div className="hidden h-12 items-center justify-between md:flex">
@@ -59,9 +64,13 @@ export default async function ChatLayout({
             return (
               <Fragment key={message.txHash}>
                 {index !== 0 ? <hr className="border-0.5 border-gray-6" role="separator" /> : null}
-                <Link
-                  className="flex flex-col space-y-1 p-4 transition-colors hover:bg-gray-4"
-                  href={`/chat/${params.from}/${to}`}
+                {/* We need the following component as a wrapper because we need
+                to read `pathname` via `usePathname` to determine which chat
+                previews to disable. */}
+                <ChatPreview
+                  message={message}
+                  from={data.address}
+                  toAddressDisplay={toAddressDisplay}
                 >
                   <div className="flex w-full items-center justify-between">
                     <div className="line-clamp-1 text-ellipsis font-medium text-gray-12">
@@ -74,12 +83,12 @@ export default async function ChatLayout({
                   <div className="line-clamp-2 text-ellipsis text-sm text-gray-11">
                     {message.message}
                   </div>
-                </Link>
+                </ChatPreview>
               </Fragment>
             );
           })}
         </div>
-      </div>
+      </ChatColumnWrapper>
       <div className="min-h-screen grow">{children}</div>
     </div>
   );
