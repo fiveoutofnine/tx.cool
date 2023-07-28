@@ -5,6 +5,7 @@ declare global {
       NEXT_PUBLIC_BLOCK_EXPLORER: string;
       // Services
       NEXT_PUBLIC_ALCHEMY_ID: string;
+      TRANSPOSE_API_KEY: string;
     }
   }
 }

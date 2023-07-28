@@ -1,8 +1,9 @@
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import type { ReactNode } from 'react';
+import { Fragment, type ReactNode } from 'react';
 
-import { getEnsNameOrAddress } from '@/lib/utils';
-import { getShortenedAddress } from '@/lib/utils';
+import { publicClient } from '@/lib/client';
+import { fetchRecentMessages, getEnsNameOrAddress, getShortenedAddress } from '@/lib/utils';
 
 import Logo from '@/components/common/logo';
 import Avatar from '@/components/templates/avatar';
@@ -20,6 +21,8 @@ export default async function ChatLayout({
   if (!data) notFound();
 
   const addressDisplay = data.ensName ?? getShortenedAddress(data.address);
+
+  const messages = await fetchRecentMessages(data.address);
 
   return (
     <div className="flex min-h-screen">
@@ -42,6 +45,39 @@ export default async function ChatLayout({
               <Avatar src="" alt="" size={32} />
             )}
           </div>
+        </div>
+        <div
+          className="hide-scrollbar flex flex-col overflow-y-scroll pb-12 md:pb-0"
+          style={{ height: 'calc(100vh - 3rem)' }}
+        >
+          {messages.map(async (message, index) => {
+            const to =
+              message.fromAddress === data.address ? message.toAddress : message.fromAddress;
+            const toAddressDisplay =
+              (await publicClient.getEnsName({ address: to })) ?? getShortenedAddress(to);
+
+            return (
+              <Fragment key={message.txHash}>
+                {index !== 0 ? <hr className="border-0.5 border-gray-6" role="separator" /> : null}
+                <Link
+                  className="flex flex-col space-y-1 p-4 transition-colors hover:bg-gray-4"
+                  href={`/chat/${params.from}/${to}`}
+                >
+                  <div className="flex w-full items-center justify-between">
+                    <div className="line-clamp-1 text-ellipsis font-medium text-gray-12">
+                      {toAddressDisplay}
+                    </div>
+                    <div className="text-sm text-gray-11" title={message.timestamp.toISOString()}>
+                      {message.timestamp.toLocaleDateString('short')}
+                    </div>
+                  </div>
+                  <div className="line-clamp-2 text-ellipsis text-sm text-gray-11">
+                    {message.message}
+                  </div>
+                </Link>
+              </Fragment>
+            );
+          })}
         </div>
       </div>
       <div className="min-h-screen grow">{children}</div>
