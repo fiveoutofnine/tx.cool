@@ -8,7 +8,7 @@ import { Button } from '@/components/ui';
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col p-4 md:px-24 md:py-16">
+    <div className="flex min-h-screen flex-col p-4 pb-16 md:px-24 md:py-16">
       <h1 className="mb-4 text-left text-5xl font-black tracking-tighter text-gray-12 md:text-6xl">
         tx.cool
       </h1>
