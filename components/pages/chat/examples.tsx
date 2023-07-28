@@ -1,5 +1,6 @@
 import { type FC, useId } from 'react';
 
+import ChatExampleForm from './example-form';
 import clsx from 'clsx';
 import { ChevronRight } from 'lucide-react';
 import type { Address } from 'viem';
@@ -9,7 +10,6 @@ import { Button } from '@/components/ui';
 
 const ChatExamples: FC = () => {
   const fieldsetId = useId();
-  const inputId = useId();
 
   return (
     <div className="flex w-full flex-col sm:w-[400px]">
@@ -41,26 +41,7 @@ const ChatExamples: FC = () => {
         ))}
       </fieldset>
 
-      <form className="mt-4">
-        <label htmlFor={inputId} className="text-xs text-gray-11">
-          Or enter an ENS/address
-        </label>
-        <div className="relative mt-1 flex items-center">
-          <input
-            id={inputId}
-            className="h-10 w-full rounded-lg border border-gray-7 bg-gray-2 px-3 text-gray-12 transition-colors placeholder:text-gray-11 hover:border-gray-8 focus:border-blue-9 focus:outline-none"
-            placeholder="example.eth"
-          />
-          <Button
-            className="absolute right-2"
-            size="sm"
-            rightIcon={<ChevronRight />}
-            href={`/chat/${'wip'}`}
-          >
-            View
-          </Button>
-        </div>
-      </form>
+      <ChatExampleForm />
     </div>
   );
 };
