@@ -1,3 +1,4 @@
+import getEnsNameOrAddress from './getEnsNameOrAddress';
 import getShortenedAddress from './getShortenedAddress';
 
-export { getShortenedAddress };
+export { getEnsNameOrAddress, getShortenedAddress };

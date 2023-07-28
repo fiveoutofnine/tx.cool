@@ -27,8 +27,8 @@ const InfoStack: FC<InfoStackProps> = ({
         </div>
       ) : null}
       <div className="flex flex-col items-center gap-1 md:gap-2">
-        <h1 className="text-3xl font-semibold text-gray-12 md:text-5xl">{title}</h1>
-        <p className="text-lg text-gray-11 md:text-xl">{description}</p>
+        <h1 className="text-center text-3xl font-semibold text-gray-12 md:text-5xl">{title}</h1>
+        <p className="text-center text-lg text-gray-11 md:text-xl">{description}</p>
       </div>
       {children}
     </div>
