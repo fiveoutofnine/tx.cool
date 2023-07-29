@@ -1,5 +1,11 @@
 import type { Address, Hash } from 'viem';
 
+export type SupabaseChatConversationLastUpdated = {
+  address1: Address;
+  address2: Address;
+  lastUpdated: string;
+};
+
 export type SupabaseChatLastUpdated = {
   address: Address;
   lastUpdated: string;

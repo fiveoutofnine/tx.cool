@@ -64,7 +64,7 @@ export default async function ChatLayout({
             timestamp.getDate() === now.getDate()
               ? timestamp.toLocaleTimeString('en-US', { timeStyle: 'short' }) // HH:MM AM/PM
               : now.getTime() - timestamp.getTime() < 604_800_000
-              ? timestamp.getDay() // Day of the week
+              ? timestamp.toLocaleDateString('en-US', { weekday: 'long' }) // Day of the week
               : timestamp.toLocaleDateString('en-US', { dateStyle: 'short' }); // MM/DD/YYYY
 
           return (
