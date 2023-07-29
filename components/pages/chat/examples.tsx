@@ -21,9 +21,9 @@ const ChatExamples: FC = () => {
         className="mt-1 flex flex-col rounded-xl border border-gray-6 bg-gray-2"
       >
         {[
-          { label: 'Euler Exploiter', address: '0xb66cd966670d962c227b3eaba30a872dbfb995db' },
           { label: '5/9', address: '0xA85572Cd96f1643458f17340b6f0D6549Af482F5' },
           { label: 'shunkakinoki', address: '0x4fd9D0eE6D6564E80A9Ee00c0163fC952d0A45Ed' },
+          { label: 'Euler Exploiter', address: '0xb66cd966670d962c227b3eaba30a872dbfb995db' },
         ].map((example, index) => (
           <div
             key={example.address}
