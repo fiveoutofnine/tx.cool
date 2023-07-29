@@ -1,7 +1,11 @@
 import { createClient } from '@supabase/supabase-js';
 import type { Address } from 'viem';
 
-import type { TransposeOnChainMessagesResponse } from '@/lib/types/api';
+import type {
+  SupabaseChatLastUpdated,
+  SupabaseChatMessageTx,
+  TransposeOnChainMessagesResponse,
+} from '@/lib/types/api';
 import type { ChatMessageTx } from '@/lib/types/chat';
 
 const supabase = createClient(
@@ -10,15 +14,33 @@ const supabase = createClient(
 );
 
 const fetchRecentMessages = async (address: Address, page: number): Promise<ChatMessageTx[]> => {
-  // First, try selecting from Supabase.
+  // First, select address message data from Supabase.
+  const { data: addressData } = await supabase
+    .from('chat_last_updated')
+    .select('lastUpdated')
+    .eq('address', address.toLowerCase())
+    .returns<SupabaseChatLastUpdated[]>();
+
+  // Then, select existing data from Supabase.
   const { data, status, error } = await supabase
     .rpc('select_chat_recent_messages', {
       _address: address.toLowerCase(),
       _offset: page * 20,
     })
-    .returns<ChatMessageTx[]>();
+    .returns<SupabaseChatMessageTx[]>();
 
-  if ((error && status !== 406) || (data && data.length === 0) || !data) {
+  // Force an update if there's an error, there's no data, or if the data was
+  // last updated more than 12 hours ago.
+  if (
+    (error && status !== 406) ||
+    (data && data.length === 0) ||
+    !data ||
+    !addressData ||
+    addressData.length === 0 ||
+    (addressData &&
+      addressData[0] &&
+      Date.now() - new Date(addressData[0].lastUpdated).getTime() > 43_200_000)
+  ) {
     const response = await fetch('https://api.transpose.io/sql', {
       method: 'POST',
       headers: {
@@ -47,10 +69,14 @@ const fetchRecentMessages = async (address: Address, page: number): Promise<Chat
       txHash: tx.transaction_hash.toLowerCase(),
     }));
 
-    // Insert into Supabase.
+    // Upsert into Supabase.
+    await supabase.from('chat_last_updated').upsert({
+      address: address.toLowerCase(),
+      lastUpdated: new Date().toISOString(),
+    });
     await supabase.from('chat_txs').upsert(messages);
 
-    return messages;
+    return messages.slice(0, 20);
   }
 
   return data.map(({ timestamp, ...rest }) => ({ timestamp: new Date(timestamp), ...rest }));
