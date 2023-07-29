@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Fragment } from 'react';
 
+import ChatConversationWrapper from './chat-conversation-wrapper';
 import clsx from 'clsx';
 import { ArrowLeft, ExternalLink, MessageCircle } from 'lucide-react';
 
@@ -24,10 +25,9 @@ export default async function ChatTo({ params }: { params: { from: string; to: s
   const messages = await fetchConversation(dataFrom.address, dataTo.address, 0);
 
   return (
-    <div
-      className="hide-scrollbar flex-col items-center justify-center overflow-y-scroll"
-      style={{ height: '100vh' }}
-    >
+    /* We need the following component as a wrapper because we need to scroll
+    to the bottom of the chat conversation when the page loads. */
+    <ChatConversationWrapper>
       {/* Desktop */}
       <div className="sticky top-0 z-popover hidden h-12 items-center justify-between border-b border-gray-6 bg-gray-1/50 px-4 backdrop-blur-2xl md:flex">
         <div className="flex items-center space-x-3">
@@ -60,7 +60,7 @@ export default async function ChatTo({ params }: { params: { from: string; to: s
         </div>
       </div>
       {/* Conversation */}
-      <div className="flex max-w-full grow flex-col p-4">
+      <div className="flex max-w-full grow flex-col p-4 pb-16 md:pb-4">
         <div className="flex flex-col gap-2">
           {dataTo.ensName ? (
             /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
@@ -77,7 +77,7 @@ export default async function ChatTo({ params }: { params: { from: string; to: s
           >
             {toAddressDisplay}
           </a>
-          <span className="text-gray-11">
+          <span className="leading-relaxed text-gray-11">
             The start of{' '}
             <a
               href={`https://etherscan.io/address/${dataFrom.address}`}
@@ -153,6 +153,6 @@ export default async function ChatTo({ params }: { params: { from: string; to: s
           );
         })}
       </div>
-    </div>
+    </ChatConversationWrapper>
   );
 }

@@ -33,10 +33,10 @@ const ChatColumnWrapper: FC<ChatColumnWrapperProps> = ({ children }) => {
     // Hide on small screens on `/chat/[from]/[to]` pages.
     <div
       className={clsx(
-        'hide-scrollbar relative flex min-h-screen w-full flex-col overflow-y-scroll border-gray-6 bg-gray-2 pb-12 md:w-[320px] md:min-w-[320px] md:border-r md:pb-0',
+        'hide-scrollbar relative flex h-screen min-h-screen w-full flex-col overflow-y-scroll border-gray-6 bg-gray-2 pb-12 md:w-[320px] md:min-w-[320px] md:border-r md:pb-0',
         isFromPage ? '' : 'hidden md:block',
       )}
-      style={{ maxWidth: '100vw', height: '100vh' }}
+      style={{ maxWidth: '100vw' }}
       onScroll={onScroll}
     >
       {children}
