@@ -28,7 +28,7 @@ const ChatExamples: FC = () => {
           <div
             key={example.address}
             className={clsx(
-              'flex w-full items-center justify-between px-4 py-2',
+              'flex w-full items-center justify-between px-4 py-2.5',
               index !== 0 && 'border-t border-gray-6',
             )}
           >

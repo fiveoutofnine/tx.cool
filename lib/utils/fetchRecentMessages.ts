@@ -25,12 +25,12 @@ const fetchRecentMessages = async (address: Address, page: number): Promise<Chat
   const { data, status, error } = await supabase
     .rpc('select_chat_recent_messages', {
       _address: address.toLowerCase(),
-      _offset: page * 20,
+      _offset: page * 10,
     })
     .returns<SupabaseChatMessageTx[]>();
 
   // Force an update if there's an error, there's no data, or if the data was
-  // last updated more than 12 hours ago.
+  // last updated more than 4 hours ago.
   if (
     (error && status !== 406) ||
     (data && data.length === 0) ||
@@ -39,7 +39,7 @@ const fetchRecentMessages = async (address: Address, page: number): Promise<Chat
     addressData.length === 0 ||
     (addressData &&
       addressData[0] &&
-      Date.now() - new Date(addressData[0].lastUpdated).getTime() > 43_200_000)
+      Date.now() - new Date(addressData[0].lastUpdated).getTime() > 14_400_000)
   ) {
     const response = await fetch('https://api.transpose.io/sql', {
       method: 'POST',
@@ -48,9 +48,11 @@ const fetchRecentMessages = async (address: Address, page: number): Promise<Chat
         'X-API-KEY': process.env.TRANSPOSE_API_KEY,
       },
       body: JSON.stringify({
+        // Note: we select up to the most recent 250 messages whenever the data
+        // is stale or nonexistent.
         // eslint-disable-next-line
-      sql: `SELECT t.block_number, t.from_address, t.to_address, t.value, raw.message, t.timestamp, t.transaction_hash FROM ( SELECT from_address, to_address, VALUE, INPUT, block_number, TIMESTAMP, transaction_hash, ROW_NUMBER() OVER ( PARTITION BY ( CASE WHEN from_address != \'{{address}}\' THEN from_address ELSE to_address END ) ORDER BY block_number DESC ) rn FROM ethereum.transactions WHERE INPUT IS NOT NULL AND ( from_address = \'{{address}}\' OR to_address = \'{{address}}\' ) ) AS t, LATERAL ( SELECT CONVERT_FROM( DECODE( SUBSTRING( REGEXP_REPLACE(t.input, \'00\', \'\', \'g\') FROM 3 ), \'hex\' ), \'LATIN1\' ) AS message ) AS raw WHERE raw.message ~ \'\\A[\\sa-zA-Z0-9%&()\\[\\]#@.,;:?!_-]*\\Z\' AND t.rn = 1 ORDER BY timestamp DESC LIMIT 20 OFFSET {{offset}}`,
-        parameters: { address, offset: page * 20 },
+      sql: `SELECT t.block_number, t.from_address, t.to_address, t.value, raw.message, t.timestamp, t.transaction_hash FROM ( SELECT from_address, to_address, VALUE, INPUT, block_number, TIMESTAMP, transaction_hash, ROW_NUMBER() OVER ( PARTITION BY ( CASE WHEN from_address != \'{{address}}\' THEN from_address ELSE to_address END ) ORDER BY block_number DESC ) rn FROM ethereum.transactions WHERE INPUT IS NOT NULL AND ( from_address = \'{{address}}\' OR to_address = \'{{address}}\' ) ) AS t, LATERAL ( SELECT CONVERT_FROM( DECODE( SUBSTRING( REGEXP_REPLACE(t.input, \'00\', \'\', \'g\') FROM 3 ), \'hex\' ), \'LATIN1\' ) AS message ) AS raw WHERE raw.message ~ \'\\A[\\sa-zA-Z0-9%&()\\[\\]#@.,;:?!_-]*\\Z\' AND t.rn = 1 ORDER BY timestamp DESC LIMIT 250 OFFSET {{offset}}`,
+        parameters: { address, offset: page * 10 },
       }),
     });
 
