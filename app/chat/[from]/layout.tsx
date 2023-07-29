@@ -56,8 +56,7 @@ export default async function ChatLayout({
           style={{ height: 'calc(100vh - 3rem)' }}
         >
           {messages.map(async (message, index) => {
-            const to =
-              message.fromAddress === data.address ? message.toAddress : message.fromAddress;
+            const to = message.from.toLowerCase() === data.address ? message.to : message.from;
             const toAddressDisplay =
               (await publicClient.getEnsName({ address: to })) ?? getShortenedAddress(to);
 

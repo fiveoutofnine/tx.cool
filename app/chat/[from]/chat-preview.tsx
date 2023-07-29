@@ -23,7 +23,7 @@ const ChatPreview: FC<ChatPreviewProps> = ({ message, from, toAddressDisplay, ch
   const path = pathname.split('/');
   // We know `toFromUrl` must be either an ENS domain or an address.
   const toFromUrl = !path || path.length < 4 ? '' : path[3];
-  const to = message.fromAddress === from ? message.toAddress : message.fromAddress;
+  const to = message.from === from ? message.to : message.from;
   const selected = isAddress(toFromUrl)
     ? toFromUrl.toLowerCase() === to.toLowerCase()
     : toFromUrl.toLowerCase() === toAddressDisplay.toLowerCase();
