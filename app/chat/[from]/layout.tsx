@@ -24,7 +24,7 @@ export default async function ChatLayout({
 
   const addressDisplay = data.ensName ?? getShortenedAddress(data.address);
 
-  const messages = await fetchRecentMessages(data.address);
+  const messages = await fetchRecentMessages(data.address, 0);
 
   return (
     <div className="flex min-h-screen">

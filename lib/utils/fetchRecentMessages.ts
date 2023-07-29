@@ -3,7 +3,7 @@ import type { Address } from 'viem';
 import type { TransposeOnChainMessagesResponse } from '@/lib/types/api';
 import type { ChatMessageTx } from '@/lib/types/chat';
 
-const fetchRecentMessages = async (address: Address): Promise<ChatMessageTx[]> => {
+const fetchRecentMessages = async (address: Address, page: number): Promise<ChatMessageTx[]> => {
   const response = await fetch('https://api.transpose.io/sql', {
     method: 'POST',
     headers: {
@@ -12,8 +12,8 @@ const fetchRecentMessages = async (address: Address): Promise<ChatMessageTx[]> =
     },
     body: JSON.stringify({
       // eslint-disable-next-line
-      sql: `SELECT t.block_number, t.from_address, t.to_address, t.value, raw.message, timestamp, transaction_hash FROM ( SELECT from_address, to_address, value, input, block_number, timestamp, transaction_hash FROM ethereum.transactions WHERE input IS NOT NULL AND from_address = \'{{address}}\' OR to_address = \'{{address}}\' ORDER BY block_number DESC ) AS t, LATERAL ( SELECT CONVERT_FROM( DECODE( SUBSTRING( REGEXP_REPLACE(t.input, \'00\', \'\', \'g\') FROM 3 ), \'hex\' ), \'LATIN1\' ) AS message ) AS raw WHERE raw.message ~ \'\\A[\\sa-zA-Z0-9%&()\\[\\]#@.,;:?!_-]*\\Z\'`,
-      parameters: { address },
+      sql: `SELECT t.block_number, t.from_address, t.to_address, t.value, raw.message, t.timestamp, t.transaction_hash FROM ( SELECT from_address, to_address, VALUE, INPUT, block_number, TIMESTAMP, transaction_hash, ROW_NUMBER() OVER ( PARTITION BY ( CASE WHEN from_address != \'{{address}}\' THEN from_address ELSE to_address END ) ORDER BY block_number DESC ) rn FROM ethereum.transactions WHERE INPUT IS NOT NULL AND ( from_address = \'{{address}}\' OR to_address = \'{{address}}\' ) ) AS t, LATERAL ( SELECT CONVERT_FROM( DECODE( SUBSTRING( REGEXP_REPLACE(t.input, \'00\', \'\', \'g\') FROM 3 ), \'hex\' ), \'LATIN1\' ) AS message ) AS raw WHERE raw.message ~ \'\\A[\\sa-zA-Z0-9%&()\\[\\]#@.,;:?!_-]*\\Z\' AND t.rn = 1 ORDER BY timestamp DESC LIMIT 20 OFFSET {{offset}}`,
+      parameters: { address, offset: page * 20 },
     }),
   });
 
