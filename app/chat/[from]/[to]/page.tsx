@@ -18,7 +18,10 @@ export default async function ChatTo({ params }: { params: { from: string; to: s
   const toAddressDisplay = dataTo.ensName ?? getShortenedAddress(dataTo.address);
 
   return (
-    <div className="min-h-screen flex-col items-center justify-center">
+    <div
+      className="flex-col items-center justify-center overflow-y-scroll"
+      style={{ height: '100vh' }}
+    >
       {/* Desktop */}
       <div className="sticky top-0 hidden h-12 items-center justify-between border-b border-gray-6 bg-gray-1/50 px-4 backdrop-blur-2xl md:flex">
         <div className="flex items-center space-x-3">

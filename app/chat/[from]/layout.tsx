@@ -33,7 +33,7 @@ export default async function ChatLayout({
       `pathname` via `usePathname` to determine whether we're on `/chat/[from]`
       or `/chat/[from]/[to]`. */}
       <ChatColumnWrapper>
-        <div className="sticky top-0 h-12 border-b border-gray-6 bg-gray-2/50 px-4 backdrop-blur-2xl">
+        <div className="sticky top-0 z-popover h-12 border-b border-gray-6 bg-gray-2/50 px-4 backdrop-blur-2xl">
           {/* Desktop */}
           <div className="hidden h-12 items-center justify-between md:flex">
             <div className="text-2xl font-semibold tracking-tighter text-gray-12">/chat</div>

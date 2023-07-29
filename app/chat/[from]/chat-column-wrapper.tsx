@@ -33,7 +33,7 @@ const ChatColumnWrapper: FC<ChatColumnWrapperProps> = ({ children }) => {
     // Hide on small screens on `/chat/[from]/[to]` pages.
     <div
       className={clsx(
-        'hide-scrollbar relative flex min-h-screen w-full flex-col overflow-y-scroll border-r border-gray-6 bg-gray-2 pb-12 md:w-[320px] md:pb-0',
+        'hide-scrollbar relative flex min-h-screen w-full flex-col overflow-y-scroll border-gray-6 bg-gray-2 pb-12 md:w-[320px] md:border-r md:pb-0',
         isFromPage ? '' : 'hidden md:block',
       )}
       style={{ maxWidth: '100vw', height: '100vh' }}
@@ -43,14 +43,14 @@ const ChatColumnWrapper: FC<ChatColumnWrapperProps> = ({ children }) => {
       {/* Top gradient to hide overflow */}
       <div
         className={clsx(
-          'pointer-events-none fixed left-12 top-12 h-12 w-full border-r border-gray-6 bg-gradient-to-b from-gray-2 transition-opacity md:w-[320px]',
+          'pointer-events-none fixed left-0 top-12 h-12 w-full border-gray-6 bg-gradient-to-b from-gray-2 transition-opacity md:left-12 md:w-[320px] md:border-r',
           scrollIsAtTop ? 'opacity-0' : 'opacity-100',
         )}
       />
       {/* Bottom gradient to hide overflow */}
       <div
         className={clsx(
-          'pointer-events-none fixed bottom-0 left-12 h-12 w-full border-r border-gray-6 bg-gradient-to-t from-gray-2 transition-opacity md:w-[320px]',
+          'pointer-events-none fixed bottom-0 left-0 h-12 w-full border-gray-6 bg-gradient-to-t from-gray-2 transition-opacity md:left-12 md:w-[320px] md:border-r',
           scrollIsAtBottom ? 'opacity-0' : 'opacity-100',
         )}
       />
