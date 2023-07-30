@@ -14,7 +14,7 @@ const ChatConversationWrapper: FC<ChatConversationWrapperProps> = ({ children })
   useEffect(() => messagesEndRef.current?.scrollIntoView(), []);
 
   return (
-    <div className="hide-scrollbar h-screen flex-col items-center justify-center overflow-y-scroll">
+    <div className="flex flex-col">
       {children}
       <div ref={messagesEndRef} />
     </div>

@@ -27,7 +27,7 @@ export default async function ChatTo({ params }: { params: { from: string; to: s
   return (
     /* We need the following component as a wrapper because we need to scroll
     to the bottom of the chat conversation when the page loads. */
-    <ChatConversationWrapper>
+    <div className="hide-scrollbar h-screen flex-col items-center justify-center overflow-y-scroll">
       {/* Desktop */}
       <div className="sticky top-0 z-popover hidden h-12 items-center justify-between border-b border-gray-6 bg-gray-1/50 px-4 backdrop-blur-2xl md:flex">
         <div className="flex items-center space-x-3">
@@ -100,59 +100,63 @@ export default async function ChatTo({ params }: { params: { from: string; to: s
           </span>
         </div>
         <hr className="mt-6 w-full border-t border-gray-6" role="separator" />
-        {messages.map((message, index) => {
-          const prevTx = index > 0 ? messages[index - 1] : undefined;
-          const timestamp = message.timestamp;
-          const threeHoursSinceLastMessage =
-            !prevTx || timestamp.getTime() - prevTx.timestamp.getTime() > 10_800_000;
-          const now = new Date();
-          const timeString = timestamp.toLocaleTimeString('en-US', { timeStyle: 'short' });
-          const formattedDate =
-            timestamp.getFullYear() === now.getFullYear() &&
-            timestamp.getMonth() === now.getMonth() &&
-            timestamp.getDate() === now.getDate()
-              ? timeString // HH:MM AM/PM
-              : now.getTime() - timestamp.getTime() < 604_800_000
-              ? `${timestamp.getDay()} ${timeString}` // Day of the week
-              : now.getTime() - timestamp.getTime() < 31_536_000_000
-              ? `${timestamp.toLocaleDateString('en-US', {
-                  // EEE, MMM, DD at HH:MM AM/PM
-                  weekday: 'short',
-                  month: 'short',
-                  day: 'numeric',
-                })} at ${timeString}`
-              : `${timestamp.toLocaleDateString('en-US', {
-                  // MMM DD, YYYY at HH:MM AM/PM
-                  dateStyle: 'medium',
-                })} at ${timeString}`;
+        <ChatConversationWrapper>
+          {messages.map((message, index) => {
+            const prevTx = index > 0 ? messages[index - 1] : undefined;
+            const timestamp = message.timestamp;
+            const threeHoursSinceLastMessage =
+              !prevTx || timestamp.getTime() - prevTx.timestamp.getTime() > 10_800_000;
+            const now = new Date();
+            const timeString = timestamp.toLocaleTimeString('en-US', { timeStyle: 'short' });
+            const formattedDate =
+              timestamp.getFullYear() === now.getFullYear() &&
+              timestamp.getMonth() === now.getMonth() &&
+              timestamp.getDate() === now.getDate()
+                ? timeString // HH:MM AM/PM
+                : now.getTime() - timestamp.getTime() < 604_800_000
+                ? `${timestamp.getDay()} ${timeString}` // Day of the week
+                : now.getTime() - timestamp.getTime() < 31_536_000_000
+                ? `${timestamp.toLocaleDateString('en-US', {
+                    // EEE, MMM, DD at HH:MM AM/PM
+                    weekday: 'short',
+                    month: 'short',
+                    day: 'numeric',
+                  })} at ${timeString}`
+                : `${timestamp.toLocaleDateString('en-US', {
+                    // MMM DD, YYYY at HH:MM AM/PM
+                    dateStyle: 'medium',
+                  })} at ${timeString}`;
 
-          return (
-            <Fragment key={message.txHash}>
-              {threeHoursSinceLastMessage ? (
-                <div className="my-6 flex justify-center text-sm text-gray-11">{formattedDate}</div>
-              ) : null}
-              <a
-                className={clsx(
-                  'w-fit max-w-[32rem] whitespace-pre-line break-words rounded-xl px-3 py-2 text-gray-1 transition-colors dark:text-gray-12',
-                  message.from === dataTo.address.toLowerCase()
-                    ? 'bg-gray-3 hover:bg-gray-4'
-                    : 'ml-auto bg-[#007FFF] hover:bg-blue-10',
-                  threeHoursSinceLastMessage
-                    ? 'mt-0'
-                    : prevTx && prevTx.from === message.from
-                    ? 'mt-1'
-                    : 'mt-4',
-                )}
-                href={`https://etherscan.io/tx/${message.txHash}`}
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                {message.message}
-              </a>
-            </Fragment>
-          );
-        })}
+            return (
+              <Fragment key={message.txHash}>
+                {threeHoursSinceLastMessage ? (
+                  <div className="my-6 flex justify-center text-sm text-gray-11">
+                    {formattedDate}
+                  </div>
+                ) : null}
+                <a
+                  className={clsx(
+                    'w-fit max-w-[32rem] whitespace-pre-line break-words rounded-xl px-3 py-2 text-gray-1 transition-colors dark:text-gray-12',
+                    message.from === dataTo.address.toLowerCase()
+                      ? 'bg-gray-3 hover:bg-gray-4'
+                      : 'ml-auto bg-[#007FFF] hover:bg-blue-10',
+                    threeHoursSinceLastMessage
+                      ? 'mt-0'
+                      : prevTx && prevTx.from === message.from
+                      ? 'mt-1'
+                      : 'mt-4',
+                  )}
+                  href={`https://etherscan.io/tx/${message.txHash}`}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  {message.message}
+                </a>
+              </Fragment>
+            );
+          })}
+        </ChatConversationWrapper>
       </div>
-    </ChatConversationWrapper>
+    </div>
   );
 }

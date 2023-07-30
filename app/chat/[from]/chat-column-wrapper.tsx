@@ -50,7 +50,7 @@ const ChatColumnWrapper: FC<ChatColumnWrapperProps> = ({ children }) => {
       {/* Bottom gradient to hide overflow */}
       <div
         className={clsx(
-          'pointer-events-none fixed bottom-0 left-0 h-12 w-full border-gray-6 bg-gradient-to-t from-gray-2 transition-opacity md:left-12 md:w-[320px] md:border-r',
+          'pointer-events-none fixed bottom-12 left-0 h-12 w-full border-gray-6 bg-gradient-to-t from-gray-2 transition-opacity md:bottom-0 md:left-12 md:w-[320px] md:border-r',
           scrollIsAtBottom ? 'opacity-0' : 'opacity-100',
         )}
       />
