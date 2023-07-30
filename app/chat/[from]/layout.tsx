@@ -34,23 +34,33 @@ export default async function ChatLayout({
       `pathname` via `usePathname` to determine whether we're on `/chat/[from]`
       or `/chat/[from]/[to]`. */}
       <ChatColumnWrapper>
-        <div className="sticky top-0 z-popover h-12 border-b border-gray-6 bg-gray-2/50 px-4 backdrop-blur-2xl">
+        <div className="sticky top-0 z-10 h-12 border-b border-gray-6 bg-gray-2/50 px-4 backdrop-blur-2xl">
           {/* Desktop */}
           <div className="hidden h-12 items-center justify-between md:flex">
             <div className="text-2xl font-semibold tracking-tighter text-gray-12">/chat</div>
-            <Button variant="secondary">{addressDisplay}</Button>
+            <ChatSwitchAddressDrawer address={data.address} label={addressDisplay}>
+              <Button variant="secondary">{addressDisplay}</Button>
+            </ChatSwitchAddressDrawer>
           </div>
           {/* Mobile */}
           <div className="flex h-12 items-center justify-between md:hidden">
             <Logo />
             <div className="ml-2 font-medium text-gray-12">/chat</div>
-            {data.ensName ? (
-              /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
-              /* @ts-ignore Async Server Component */
-              <ENSAvatar name={data.ensName} size={32} />
-            ) : (
-              <Avatar src="" alt="" size={32} />
-            )}
+            <ChatSwitchAddressDrawer address={data.address} label={addressDisplay}>
+              <button
+                className='hover:opacity-75 rounded-full focus-visible:ring-2 focus-visible:outline-none focus-visible:ring-blue-9'
+                title={data.ensName ?? data.address}
+                aria-label='View or switch address'
+              >
+                {data.ensName ? (
+                  /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
+                  /* @ts-ignore Async Server Component */
+                  <ENSAvatar name={data.ensName} size={32} />
+                ) : (
+                  <Avatar src="" alt="" size={32} />
+                )}
+              </button>
+            </ChatSwitchAddressDrawer>
           </div>
         </div>
         {messages.map(async (message, index) => {
@@ -71,9 +81,9 @@ export default async function ChatLayout({
           return (
             <Fragment key={message.txHash}>
               {index !== 0 ? <hr className="border-0.5 border-gray-6" role="separator" /> : null}
-              {/* We need the following component as a wrapper because we
-                  need to read `pathname` via `usePathname` to determine which
-                  chat previews to disable. */}
+              {/* We need the following component as a wrapper because we need
+              to read `pathname` via `usePathname` to determine which chat
+              previews to disable. */}
               <ChatPreview
                 message={message}
                 from={data.address}
@@ -119,7 +129,7 @@ export default async function ChatLayout({
                 has no messages.
               </span>
             </div>
-            <ChatSwitchAddressDrawer>
+            <ChatSwitchAddressDrawer address={data.address} label={addressDisplay}>
               <Button variant="outline">Switch address</Button>
             </ChatSwitchAddressDrawer>
           </div>

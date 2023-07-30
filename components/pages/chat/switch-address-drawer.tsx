@@ -1,27 +1,39 @@
-'use client';
-
 import type { FC, ReactNode } from 'react';
 
 import ChatExamples from './examples';
-import { Drawer } from 'vaul';
+import ChatSwitchAddressDrawerInternal from './switch-address-drawer-internal';
+import { ExternalLink } from 'lucide-react';
+import type { Address } from 'viem';
+
+import AddressInfo from '@/components/templates/address-info';
+import { IconButton } from '@/components/ui';
 
 /* Props */
 type ChatSwitchAddressDrawerProps = {
+  address: Address;
+  label: string;
   children: ReactNode;
 };
 
 /* Component */
-const ChatSwitchAddressDrawer: FC<ChatSwitchAddressDrawerProps> = ({ children }) => {
+const ChatSwitchAddressDrawer: FC<ChatSwitchAddressDrawerProps> = ({
+  address,
+  label,
+  children,
+}) => {
   return (
-    <Drawer.Root>
-      <Drawer.Trigger asChild>{children}</Drawer.Trigger>
-      <Drawer.Overlay className="fixed inset-0 z-popover bg-black/40" />
-      <Drawer.Portal>
-        <Drawer.Content className="fixed bottom-0 left-0 right-0 z-popover mt-24 flex flex-col rounded-t-[10px] border-t border-gray-6 bg-gray-2 p-4">
-          <ChatExamples />
-        </Drawer.Content>
-      </Drawer.Portal>
-    </Drawer.Root>
+    <ChatSwitchAddressDrawerInternal trigger={children}>
+      <div className="mx-auto w-12 h-1 flex-shrink-0 rounded-full bg-gray-9 mb-4" />
+      <div className="mb-4 flex w-full items-center justify-between">
+        {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+        {/* @ts-ignore Async Server Component */}
+        <AddressInfo address={address} label={label} />
+        <IconButton href={`https://etherscan.io/address/${address}`} newTab>
+          <ExternalLink />
+        </IconButton>
+      </div>
+      <ChatExamples />
+    </ChatSwitchAddressDrawerInternal>
   );
 };
 

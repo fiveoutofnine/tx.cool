@@ -8,16 +8,16 @@ import type {
 } from '@/lib/types/api';
 import type { ChatMessageTx } from '@/lib/types/chat';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_KEY,
-);
-
 const fetchConversation = async (
   address1: Address,
   address2: Address,
   page: number,
 ): Promise<ChatMessageTx[]> => {
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.SUPABASE_SERVICE_KEY,
+  );
+
   const minAddress =
     address1.toLowerCase() < address2.toLowerCase()
       ? address1.toLowerCase()
