@@ -23,7 +23,7 @@ const ChatSwitchAddressDrawer: FC<ChatSwitchAddressDrawerProps> = ({
 }) => {
   return (
     <ChatSwitchAddressDrawerInternal trigger={children}>
-      <div className="mx-auto w-12 h-1 flex-shrink-0 rounded-full bg-gray-9 mb-4" />
+      <div className="mx-auto mb-4 h-1 w-12 flex-shrink-0 rounded-full bg-gray-9" />
       <div className="mb-4 flex w-full items-center justify-between">
         {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
         {/* @ts-ignore Async Server Component */}

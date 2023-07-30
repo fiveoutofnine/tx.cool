@@ -48,9 +48,9 @@ export default async function ChatLayout({
             <div className="ml-2 font-medium text-gray-12">/chat</div>
             <ChatSwitchAddressDrawer address={data.address} label={addressDisplay}>
               <button
-                className='hover:opacity-75 rounded-full focus-visible:ring-2 focus-visible:outline-none focus-visible:ring-blue-9'
+                className="rounded-full hover:opacity-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-9"
                 title={data.ensName ?? data.address}
-                aria-label='View or switch address'
+                aria-label="View or switch address"
               >
                 {data.ensName ? (
                   /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
