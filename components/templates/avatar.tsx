@@ -25,6 +25,7 @@ const Avatar: FC<AvatarProps> = ({ className, src, alt, size = 40 }) => {
         alt={alt}
         width={size}
         height={size}
+        style={{ width: size, height: size }}
       />
       <RadixAvatar.Fallback className={twMerge(clsx('overflow-hidden rounded-full', className))}>
         <BoringAvatar size={size} name={alt} variant="marble" />
