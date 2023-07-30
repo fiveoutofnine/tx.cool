@@ -122,7 +122,7 @@ export default async function ChatLayout({
           </div>
         ) : null}
       </ChatColumnWrapper>
-      <div className="min-h-screen grow">{children}</div>
+      <div className="h-screen min-h-screen grow">{children}</div>
     </div>
   );
 }
