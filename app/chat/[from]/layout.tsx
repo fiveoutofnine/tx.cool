@@ -9,6 +9,7 @@ import { publicClient } from '@/lib/client';
 import { fetchRecentMessages, getEnsNameOrAddress, getShortenedAddress } from '@/lib/utils';
 
 import Logo from '@/components/common/logo';
+import ChatSwitchAddressDrawer from '@/components/pages/chat/switch-address-drawer';
 import Avatar from '@/components/templates/avatar';
 import ENSAvatar from '@/components/templates/ens-avatar';
 import { Button } from '@/components/ui';
@@ -118,7 +119,9 @@ export default async function ChatLayout({
                 has no messages.
               </span>
             </div>
-            <Button variant="outline">Switch address</Button>
+            <ChatSwitchAddressDrawer>
+              <Button variant="outline">Switch address</Button>
+            </ChatSwitchAddressDrawer>
           </div>
         ) : null}
       </ChatColumnWrapper>
