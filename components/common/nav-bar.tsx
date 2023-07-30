@@ -31,7 +31,7 @@ const NavBar: FC = () => {
 
 const NavBarDesktop: FC<NavBarInternalProps> = ({ selected }) => {
   return (
-    <nav className="pointer-events-auto fixed z-popover hidden min-h-screen w-12 flex-col items-center border-r border-gray-6 dark:bg-gray-2 md:flex">
+    <nav className="pointer-events-auto fixed z-overlay hidden min-h-screen w-12 flex-col items-center border-r border-gray-6 dark:bg-gray-2 md:flex">
       <div className="flex h-12 w-12 items-center justify-center border-b border-gray-6">
         <Logo />
       </div>
@@ -55,7 +55,7 @@ const NavBarMobile: FC<NavBarInternalProps> = ({ selected }) => {
   const homeSelected = selected === '/';
 
   return (
-    <nav className="pointer-events-auto fixed bottom-0 z-popover flex h-12 w-full items-center justify-around border-t border-gray-6 px-4 dark:bg-gray-2 md:hidden">
+    <nav className="pointer-events-auto fixed bottom-0 z-overlay flex h-12 w-full items-center justify-around border-t border-gray-6 px-4 dark:bg-gray-2 md:hidden">
       <IconButton
         className={homeSelected ? 'cursor-default bg-gray-4' : ''}
         variant="ghost"

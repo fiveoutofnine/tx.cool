@@ -8,12 +8,12 @@ import type {
 } from '@/lib/types/api';
 import type { ChatMessageTx } from '@/lib/types/chat';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_KEY,
-);
-
 const fetchRecentMessages = async (address: Address, page: number): Promise<ChatMessageTx[]> => {
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.SUPABASE_SERVICE_KEY,
+  );
+
   // First, select address message data from Supabase.
   const { data: addressData } = await supabase
     .from('chat_last_updated')
