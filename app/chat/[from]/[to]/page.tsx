@@ -25,8 +25,6 @@ export default async function ChatTo({ params }: { params: { from: string; to: s
   const messages = await fetchConversation(dataFrom.address, dataTo.address, 0);
 
   return (
-    /* We need the following component as a wrapper because we need to scroll
-    to the bottom of the chat conversation when the page loads. */
     <div className="hide-scrollbar h-screen flex-col items-center justify-center overflow-y-scroll">
       {/* Desktop */}
       <div className="sticky top-0 z-popover hidden h-12 items-center justify-between border-b border-gray-6 bg-gray-1/50 px-4 backdrop-blur-2xl md:flex">
@@ -100,6 +98,8 @@ export default async function ChatTo({ params }: { params: { from: string; to: s
           </span>
         </div>
         <hr className="mt-6 w-full border-t border-gray-6" role="separator" />
+        {/* We need the following component as a wrapper because we need to
+        scroll to the bottom of the chat conversation when the page loads. */}
         <ChatConversationWrapper>
           {messages.map((message, index) => {
             const prevTx = index > 0 ? messages[index - 1] : undefined;

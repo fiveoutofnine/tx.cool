@@ -100,7 +100,7 @@ export default async function ChatLayout({
           );
         })}
         {messages.length === 0 ? (
-          <div className="flex h-full flex-col items-center justify-center gap-6">
+          <div className="flex grow flex-col items-center justify-center gap-6">
             <div className="flex h-20 w-20 items-center justify-center rounded-full border border-gray-6 bg-gray-2 text-gray-11">
               <MessageCircle className="h-9 w-9" />
             </div>
