@@ -160,3 +160,5 @@ export default async function ChatTo({ params }: { params: { from: string; to: s
     </div>
   );
 }
+
+export const revalidate = 60 * 60 * 24 * 7; // 1 week

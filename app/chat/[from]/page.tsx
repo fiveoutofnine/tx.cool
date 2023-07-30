@@ -13,3 +13,5 @@ export default function ChatFrom() {
     </div>
   );
 }
+
+export const revalidate = 60 * 60 * 24 * 7; // 1 week
