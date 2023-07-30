@@ -37,7 +37,7 @@ export default async function ChatTo({ params }: { params: { from: string; to: s
         </IconButton>
       </div>
       {/* Mobile */}
-      <div className="sticky top-0 z-popover h-12 border-b border-gray-6 bg-gray-1/50 px-4 backdrop-blur-2xl md:hidden">
+      <div className="fixed top-0 z-popover h-12 w-full border-b border-gray-6 bg-gray-1/50 px-4 backdrop-blur-2xl md:hidden">
         <div className="relative">
           <div className="absolute flex h-12 w-full items-center justify-between">
             <Link
@@ -58,7 +58,7 @@ export default async function ChatTo({ params }: { params: { from: string; to: s
         </div>
       </div>
       {/* Conversation */}
-      <div className="flex max-w-full grow flex-col p-4 pb-16 md:pb-4">
+      <div className="flex max-w-full grow flex-col p-4 py-16 md:py-4">
         <div className="flex flex-col gap-2">
           {dataTo.ensName ? (
             /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
