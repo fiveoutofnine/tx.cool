@@ -114,7 +114,7 @@ export default async function ChatTo({ params }: { params: { from: string; to: s
               timestamp.getDate() === now.getDate()
                 ? timeString // HH:MM AM/PM
                 : now.getTime() - timestamp.getTime() < 604_800_000
-                ? `${timestamp.getDay()} ${timeString}` // Day of the week
+                ? `${timestamp.toLocaleDateString('en-US', { weekday: 'long' })} ${timeString}` // Day of the week
                 : now.getTime() - timestamp.getTime() < 31_536_000_000
                 ? `${timestamp.toLocaleDateString('en-US', {
                     // EEE, MMM, DD at HH:MM AM/PM
