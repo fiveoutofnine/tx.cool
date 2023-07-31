@@ -22,7 +22,7 @@ const ChatExamples: FC = () => {
       >
         {[
           { label: '5/9', address: '0xA85572Cd96f1643458f17340b6f0D6549Af482F5' },
-          { label: 'shunkakinoki', address: '0x4fd9D0eE6D6564E80A9Ee00c0163fC952d0A45Ed' },
+          { label: 'vitalik.eth', address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045' },
           { label: 'Euler Exploiter', address: '0xb66cd966670d962c227b3eaba30a872dbfb995db' },
         ].map((example, index) => (
           <div

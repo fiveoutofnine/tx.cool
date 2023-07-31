@@ -78,33 +78,27 @@ export default async function ChatTo({ params }: { params: { from: string; to: s
           ) : (
             <Avatar src="" alt="" size={64} />
           )}
-          <a
-            href={`https://etherscan.io/address/${dataTo.address}`}
+          <Link
+            href={`/chat/${dataTo.address}`}
             className="text-2xl font-semibold tracking-tighter text-gray-12 hover:underline"
-            target="_blank"
-            rel="noopener noreferrer"
           >
             {toAddressDisplay}
-          </a>
+          </Link>
           <span className="leading-relaxed text-gray-11">
             The start of{' '}
-            <a
-              href={`https://etherscan.io/address/${dataFrom.address}`}
+            <Link
+              href={`/chat/${dataFrom.address}`}
               className="font-medium text-gray-12 hover:underline"
-              target="_blank"
-              rel="noopener noreferrer"
             >
               {fromAddressDisplay}
-            </a>
+            </Link>
             &apos;s message history with{' '}
-            <a
-              href={`https://etherscan.io/address/${dataTo.address}`}
+            <Link
+              href={`/chat/${dataTo.address}`}
               className="font-medium text-gray-12 hover:underline"
-              target="_blank"
-              rel="noopener noreferrer"
             >
               {toAddressDisplay}
-            </a>
+            </Link>
             .
           </span>
         </div>
