@@ -32,7 +32,10 @@ export default async function ChatTo({ params }: { params: { from: string; to: s
           <MessageCircle className="text-gray-11" />
           <div className="text-2xl font-semibold tracking-tighter">{toAddressDisplay}</div>
         </div>
-        <IconButton href={`https://etherscan.io/address/${toAddressDisplay}`} newTab>
+        <IconButton
+          href={`https://etherscan.io/address/${dataTo.ensName ?? dataTo.address}`}
+          newTab
+        >
           <ExternalLink />
         </IconButton>
       </div>
@@ -47,7 +50,10 @@ export default async function ChatTo({ params }: { params: { from: string; to: s
               <ArrowLeft className="h-4 w-4" />
               <span>/chat</span>
             </Link>
-            <IconButton href={`https://etherscan.io/address/${toAddressDisplay}`} newTab>
+            <IconButton
+              href={`https://etherscan.io/address/${dataTo.ensName ?? dataTo.address}`}
+              newTab
+            >
               <ExternalLink />
             </IconButton>
           </div>
