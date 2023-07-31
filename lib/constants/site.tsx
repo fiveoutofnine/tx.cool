@@ -3,7 +3,7 @@ import { MessageCircle } from 'lucide-react';
 import type { Exploration } from '@/lib/types/site';
 
 /**
- * UI/UX explorations on on-chain data on [**tx.cool**](https://tx.cool).
+ * UI/UX explorations of on-chain data on [**tx.cool**](https://tx.cool).
  */
 export const EXPLORATIONS: Exploration[] = [
   {

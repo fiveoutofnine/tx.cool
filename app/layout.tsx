@@ -31,7 +31,7 @@ const firaCode = Fira_Code({
 
 export const metadata: Metadata = {
   title: 'tx.cool',
-  description: 'UI/UX exploration on on-chain data.',
+  description: 'UI/UX exploration of on-chain data.',
 };
 
 // -----------------------------------------------------------------------------
