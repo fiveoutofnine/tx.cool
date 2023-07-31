@@ -1,4 +1,5 @@
+import Badge from './badge';
 import Button from './button';
 import IconButton from './icon-button';
 
-export { Button, IconButton };
+export { Badge, Button, IconButton };

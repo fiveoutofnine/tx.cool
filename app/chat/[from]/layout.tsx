@@ -12,7 +12,7 @@ import Logo from '@/components/common/logo';
 import ChatSwitchAddressDrawer from '@/components/pages/chat/switch-address-drawer';
 import Avatar from '@/components/templates/avatar';
 import ENSAvatar from '@/components/templates/ens-avatar';
-import { Button } from '@/components/ui';
+import { Badge, Button } from '@/components/ui';
 
 export default async function ChatLayout({
   params,
@@ -90,8 +90,15 @@ export default async function ChatLayout({
                 toAddressDisplay={toAddressDisplay}
               >
                 <div className="flex w-full items-center justify-between">
-                  <div className="line-clamp-1 text-ellipsis font-medium text-gray-12">
-                    {toAddressDisplay}
+                  <div className="flex items-center space-x-2">
+                    <div className="line-clamp-1 text-ellipsis font-medium text-gray-12">
+                      {toAddressDisplay}
+                    </div>
+                    {message.from === message.to ? (
+                      <Badge variant="secondary" intent="primary">
+                        Self
+                      </Badge>
+                    ) : null}
                   </div>
                   <div
                     className="text-sm text-gray-11"
