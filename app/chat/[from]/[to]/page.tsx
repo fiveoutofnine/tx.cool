@@ -10,7 +10,7 @@ import { fetchConversation, getEnsNameOrAddress, getShortenedAddress } from '@/l
 
 import Avatar from '@/components/templates/avatar';
 import ENSAvatar from '@/components/templates/ens-avatar';
-import { IconButton } from '@/components/ui';
+import { Badge, IconButton } from '@/components/ui';
 
 export default async function ChatTo({ params }: { params: { from: string; to: string } }) {
   const [dataFrom, dataTo] = await Promise.all([
@@ -31,6 +31,11 @@ export default async function ChatTo({ params }: { params: { from: string; to: s
         <div className="flex items-center space-x-3">
           <MessageCircle className="text-gray-11" />
           <div className="text-2xl font-semibold tracking-tighter">{toAddressDisplay}</div>
+          {dataFrom.address === dataTo.address ? (
+            <Badge variant="secondary" intent="primary" size="lg">
+              Self
+            </Badge>
+          ) : null}
         </div>
         <IconButton
           href={`https://etherscan.io/address/${dataTo.ensName ?? dataTo.address}`}
