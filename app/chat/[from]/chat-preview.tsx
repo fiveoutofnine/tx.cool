@@ -31,7 +31,7 @@ const ChatPreview: FC<ChatPreviewProps> = ({ message, from, toAddressDisplay, ch
   return (
     <Link
       className={clsx(
-        'flex flex-col space-y-1 break-all p-4 transition-colors hover:bg-gray-4',
+        'flex flex-col space-y-1 break-words p-4 transition-colors hover:bg-gray-4',
         selected ? 'cursor-default bg-gray-4' : '',
       )}
       href={selected ? '' : `/chat/${from}/${to}`}

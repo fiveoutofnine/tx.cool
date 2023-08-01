@@ -149,7 +149,7 @@ export default async function ChatTo({ params }: { params: { from: string; to: s
                 ) : null}
                 <a
                   className={clsx(
-                    'w-fit max-w-[32rem] whitespace-pre-line break-all rounded-xl px-3 py-2 text-gray-1 transition-colors dark:text-gray-12',
+                    'w-fit max-w-[32rem] whitespace-pre-line break-words rounded-xl px-3 py-2 text-gray-1 transition-colors dark:text-gray-12',
                     message.from === dataTo.address.toLowerCase()
                       ? 'bg-gray-3 hover:bg-gray-4'
                       : 'ml-auto bg-[#007FFF] hover:bg-blue-10',
