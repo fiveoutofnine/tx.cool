@@ -10,6 +10,27 @@ const CHAT_EXPLORATION = EXPLORATIONS[0];
 export const metadata: Metadata = {
   title: CHAT_EXPLORATION.name,
   description: CHAT_EXPLORATION.description,
+  keywords: [
+    'ethereum',
+    'blockchain',
+    'transactions',
+    'on-chain',
+    'design',
+    'ui',
+    'ux',
+    'messages',
+    'chat',
+  ],
+  openGraph: {
+    locale: 'en_US',
+    url: 'https://tx.cool',
+    siteName: 'tx.cool',
+    description: CHAT_EXPLORATION.description,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    creator: '@fiveoutofnine',
+  },
 };
 
 export default function Chat() {
