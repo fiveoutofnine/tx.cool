@@ -37,10 +37,11 @@ export const metadata: Metadata = {
   colorScheme: 'dark',
   manifest: '/manifest.json',
   openGraph: {
-    locale: 'en_US',
-    url: 'https://tx.cool',
-    siteName: 'tx.cool',
+    title: 'tx.cool',
     description: 'UI/UX exploration of on-chain data.',
+    siteName: 'tx.cool',
+    url: 'https://tx.cool',
+    locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',

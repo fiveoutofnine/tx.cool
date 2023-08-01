@@ -7,8 +7,13 @@ import InfoStack from '@/components/templates/info-stack';
 
 const CHAT_EXPLORATION = EXPLORATIONS[0];
 
+const metadataTitle =
+  CHAT_EXPLORATION.name[0] === '/'
+    ? `tx.cool${CHAT_EXPLORATION.name}`
+    : `${CHAT_EXPLORATION.name} | tx.cool`;
+
 export const metadata: Metadata = {
-  title: CHAT_EXPLORATION.name,
+  title: metadataTitle,
   description: CHAT_EXPLORATION.description,
   keywords: [
     'ethereum',
@@ -22,10 +27,11 @@ export const metadata: Metadata = {
     'chat',
   ],
   openGraph: {
-    locale: 'en_US',
-    url: 'https://tx.cool',
-    siteName: 'tx.cool',
+    title: metadataTitle,
     description: CHAT_EXPLORATION.description,
+    siteName: 'tx.cool',
+    url: 'https://tx.cool',
+    locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',

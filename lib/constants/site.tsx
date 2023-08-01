@@ -9,7 +9,7 @@ export const EXPLORATIONS: Exploration[] = [
   {
     name: '/chat',
     slug: '/chat',
-    description: 'Visualization of on-chain messaging with a chat-like UI/UX.',
+    description: 'Visualization of on-chain messages with a chat-like UI/UX.',
     icon: <MessageCircle />,
   },
 ];
