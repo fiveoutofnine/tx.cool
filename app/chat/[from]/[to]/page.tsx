@@ -136,7 +136,15 @@ export default async function ChatTo({ params }: { params: { from: string; to: s
               <Fragment key={message.txHash}>
                 {threeHoursSinceLastMessage ? (
                   <div className="my-6 flex justify-center text-sm text-gray-11">
-                    {formattedDate}
+                    <span
+                      className="mx-auto w-fit"
+                      title={message.timestamp.toLocaleString('en-US', {
+                        dateStyle: 'full',
+                        timeStyle: 'full',
+                      })}
+                    >
+                      {formattedDate}
+                    </span>
                   </div>
                 ) : null}
                 <a

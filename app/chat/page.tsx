@@ -1,16 +1,9 @@
-import type { Metadata } from 'next';
-
 import { EXPLORATIONS } from '@/lib/constants/site';
 
 import ChatExamples from '@/components/pages/chat/examples';
 import InfoStack from '@/components/templates/info-stack';
 
 const CHAT_EXPLORATION = EXPLORATIONS[0];
-
-export const metadata: Metadata = {
-  title: CHAT_EXPLORATION.name,
-  description: CHAT_EXPLORATION.description,
-};
 
 export default function Chat() {
   return (
