@@ -31,21 +31,23 @@ const firaCode = Fira_Code({
 
 export const metadata: Metadata = {
   title: 'tx.cool',
-  description: 'UI/UX exploration of on-chain data.',
+  description: 'UI/UX explorations of on-chain data.',
   keywords: ['ethereum', 'blockchain', 'transactions', 'on-chain', 'design', 'ui', 'ux'],
   themeColor: '#000000',
   colorScheme: 'dark',
   manifest: '/manifest.json',
   openGraph: {
     title: 'tx.cool',
-    description: 'UI/UX exploration of on-chain data.',
+    description: 'UI/UX explorations of on-chain data.',
     siteName: 'tx.cool',
     url: 'https://tx.cool',
     locale: 'en_US',
+    images: ['/static/og/home.png'],
   },
   twitter: {
     card: 'summary_large_image',
     creator: '@fiveoutofnine',
+    images: ['/static/og/home.png'],
   },
 };
 
