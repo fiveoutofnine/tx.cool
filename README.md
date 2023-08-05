@@ -2,7 +2,37 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+First, Install all the project dependencies using:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+Create a file `.env` in the root directory and install `dotenv` package.
+
+Add API keys in your `.env` file:
+
+```bash
+# Supabase
+NEXT_PUBLIC_SUPABASE_URL=''
+NEXT_PUBLIC_SUPABASE_ANON_KEY=''
+SUPABASE_SERVICE_KEY=''
+
+# Services
+NEXT_PUBLIC_ALCHEMY_ID=''
+TRANSPOSE_API_KEY=''
+```
+
+Take help of these links for getting your `API` stuff done:
+- [Adding Supabase to NextJS](https://daily-dev-tips.com/posts/adding-supabase-to-a-nextjs-application/)
+- [Alchemy](https://docs.alchemy.com/docs/alchemy-quickstart-guide)
+- [Transpose](https://www.transpose.io/) - Sign up and get your Api key
+
+Then, run the development server:
 
 ```bash
 npm run dev
